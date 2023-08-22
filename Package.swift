@@ -9,20 +9,25 @@
             // Products define the executables and libraries a package produces, making them visible to other packages.
             .library(
                 name: "OpenCV",
-                targets: ["OpenCV"]),
+                targets: ["opencv2", "opencv2-dependencies"]),
         ],
         targets: [
             // Targets are the basic building blocks of a package, defining a module or a test suite.
             // Targets can depend on other targets in this package and products from dependencies.
             .binaryTarget(
                 name: "opencv2",
-                url: "https://github.com/ars-nomura/opencv-ios/releases/download/4.8.0/opencv-4.8.0-ios-framework.zip",
+                url: "https://github.com/ars-nomura/opencv-ios/releases/download/4.8.0/opencv2.framework.zip",
                 checksum: "89c33d2b0a66b287ffc7a7643bfed4ae4a0728a76a5c4c852854efdb300693b3"
             ),
             .target(
-                name: "OpenCV",
-                dependencies: [
-                    "opencv2"
+                name: "opencv2-dependencies",
+                linkerSettings: [
+                    .linkedFramework("AVFoundation"),
+                    .linkedFramework("CoreImage"),
+                    .linkedFramework("CoreMedia"),
+                    .linkedFramework("CoreVideo"),
+                    .linkedFramework("Accelerate"),
+                    .linkedLibrary("c++")
                 ]
             ),
         ]
