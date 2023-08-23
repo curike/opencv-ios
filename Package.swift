@@ -17,7 +17,7 @@
             .binaryTarget(
                 name: "opencv2",
                 url: "https://github.com/ars-nomura/opencv-ios/releases/download/4.8.0/opencv2.framework.zip",
-                checksum: "89c33d2b0a66b287ffc7a7643bfed4ae4a0728a76a5c4c852854efdb300693b3"
+                checksum: "b8ca6cbe0212cae760a0cc3f5af81a62368e02899a1624a488383ab6a175cb3b"
             ),
             .target(
                 name: "opencv2-dependencies",
