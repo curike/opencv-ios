@@ -16,7 +16,7 @@
             // Targets can depend on other targets in this package and products from dependencies.
             .binaryTarget(
                 name: "opencv2",
-                url: "https://github.com/ars-nomura/opencv-ios/releases/download/4.8.0/opencv2.framework.zip",
+                url: "https://github.com/ars-nomura/opencv-ios/releases/download/4.8.0/opencv2.xcframework.zip",
                 checksum: "b8ca6cbe0212cae760a0cc3f5af81a62368e02899a1624a488383ab6a175cb3b"
             ),
             .target(
