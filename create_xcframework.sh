@@ -48,3 +48,7 @@ python3 ${build_xcframework} \
 cd "${SCRIPT_DIR}"
 rm -rf "${OPENCV_DIR}"
 rm -rf "${CONTRIB_DIR}"
+
+cd "${OUTPUT_DIR}"
+zip -r "${XCFRAMEWORK}.zip" "${XCFRAMEWORK}"
+swift package compute-checksum "${XCFRAMEWORK}.zip"
