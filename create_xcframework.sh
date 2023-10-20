@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-OPENCV_VERSION=4.8.0
+OPENCV_VERSION=4.8.1
 DEPLOYMENT_TARGET="14.0"
 FRAMEWORK_NAME=opencv2
 XCFRAMEWORK="${FRAMEWORK_NAME}.xcframework"
@@ -25,6 +25,8 @@ pyenv global ${PYTHON_VERSION}
 
 rm -rf "${OPENCV_DIR}"
 rm -rf "${OUTPUT_DIR}/${XCFRAMEWORK}"
+rm -rf "${CONTRIB_DIR}"
+rm -rf "${OUTPUT_DIR}"
 
 curl -L -o opencv.zip "https://github.com/opencv/opencv/archive/refs/tags/${OPENCV_VERSION}.zip"
 unzip -q opencv.zip && rm opencv.zip
