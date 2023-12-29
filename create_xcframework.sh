@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-OPENCV_VERSION=4.8.1
+OPENCV_VERSION=4.9.0
 DEPLOYMENT_TARGET="14.0"
 FRAMEWORK_NAME=opencv2
 XCFRAMEWORK="${FRAMEWORK_NAME}.xcframework"
@@ -10,7 +10,7 @@ PYTHON_VERSION="3.9.1"
 
 SCRIPT_DIR="$(cd $(dirname $0) && pwd)"
 OPENCV_DIR="${SCRIPT_DIR}/opencv"
-CONTRIB_DIR="${SCRIPT_DIR}/opencv-contrib"
+#CONTRIB_DIR="${SCRIPT_DIR}/opencv-contrib"
 OUTPUT_DIR="${SCRIPT_DIR}/frameworks"
 
 build_xcframework="${OPENCV_DIR}/platforms/apple/build_xcframework.py"
@@ -34,7 +34,7 @@ echo "Remove tmp dirs" >&1
 
 rm -rf "${OPENCV_DIR}"
 rm -rf "${OUTPUT_DIR}/${XCFRAMEWORK}"
-rm -rf "${CONTRIB_DIR}"
+# rm -rf "${CONTRIB_DIR}"
 rm -rf "${OUTPUT_DIR}"
 
 # Download
@@ -44,9 +44,9 @@ curl -L -o opencv.zip "https://github.com/opencv/opencv/archive/refs/tags/${OPEN
 unzip -q opencv.zip && rm opencv.zip
 mv "opencv-${OPENCV_VERSION}" opencv
 
-curl -L -o opencv_contrib.zip "https://github.com/opencv/opencv_contrib/archive/refs/tags/${OPENCV_VERSION}.zip"
-unzip -q opencv_contrib.zip && rm opencv_contrib.zip
-mv "opencv_contrib-${OPENCV_VERSION}" opencv_contrib
+# curl -L -o opencv_contrib.zip "https://github.com/opencv/opencv_contrib/archive/refs/tags/${OPENCV_VERSION}.zip"
+# unzip -q opencv_contrib.zip && rm opencv_contrib.zip
+# mv "opencv_contrib-${OPENCV_VERSION}" opencv_contrib
 
 # Build
 echo "Build OpenCV ${OPENCV_VERSION}" >&1
@@ -59,7 +59,7 @@ python3 ${build_xcframework} \
   --iphoneos_deployment_target ${DEPLOYMENT_TARGET} \
   --out ${OUTPUT_DIR} \
   --framework_name ${FRAMEWORK_NAME} \
-  --contrib ../opencv_contrib
+  # --contrib ../opencv_contrib
 
 echo "Build Success!!" >&1
 
