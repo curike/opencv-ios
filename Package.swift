@@ -19,7 +19,7 @@
         targets: [
             .binaryTarget(
                 name: "opencv2",
-                url: "https://github.com/ars-nomura/opencv-ios/releases/download/\(version)/opencv2.xcframework.zip",
+                url: "https://github.com/curike/opencv-ios/releases/download/\(version)/opencv2.xcframework.zip",
                 checksum: checksum
             ),
             .target(
