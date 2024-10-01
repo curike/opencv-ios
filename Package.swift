@@ -4,7 +4,7 @@
     import PackageDescription
 
     let version = "4.10.0"
-    let checksum = "cbd21c62a4cfdd4cfe7e69c8601d23976e2d2bd05a912d0759debb3052c257db"
+    let checksum = "a4883e2e51069c9dd5527aa4f520babd37d2fcff447615abe04e1b0f109d2567"
 
     let package = Package(
         name: "OpenCV",
@@ -19,7 +19,7 @@
         targets: [
             .binaryTarget(
                 name: "opencv2",
-                url: "https://github.com/opencv/opencv/releases/download/\(version)/opencv-\(version)-ios-framework.zip",
+                url: "https://github.com/curike/opencv-ios/releases/download/\(version)/opencv2.xcframework.zip",
                 checksum: checksum
             ),
             .target(
