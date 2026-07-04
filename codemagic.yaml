@@ -1,0 +1,36 @@
+workflows:
+  build-xcframework:
+    name: Build opencv2 xcframework (ios-arm64 + sim arm64/x86_64)
+    instance_type: mac_mini_m2
+    max_build_duration: 120
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: "ci/*"
+          include: true
+    scripts:
+      - name: Build xcframework (create_xcframework.sh)
+        script: |
+          set -o pipefail
+          chmod +x create_xcframework.sh
+          # 末尾の compute-checksum は frameworks/ 配下で失敗し得る(set -e)。
+          # ビルド本体の成否は zip の存在で判定するため、ここでは失敗を握って続行する。
+          ./create_xcframework.sh 2>&1 | tee /tmp/opencv_build.log || echo "(script exited non-zero; verifying artifact next)"
+      - name: Verify slices & compute checksum
+        script: |
+          set -e
+          test -f frameworks/opencv2.xcframework.zip
+          echo "==================== XCFRAMEWORK SLICES ===================="
+          ls -la frameworks/opencv2.xcframework
+          echo "----- Info.plist LibraryIdentifiers (期待: ios-arm64, ios-arm64_x86_64-simulator) -----"
+          /usr/libexec/PlistBuddy -c "Print" frameworks/opencv2.xcframework/Info.plist | grep -i "LibraryIdentifier" || cat frameworks/opencv2.xcframework/Info.plist
+          echo "==================== NEW CHECKSUM ===================="
+          swift package compute-checksum frameworks/opencv2.xcframework.zip
+          echo "====================================================="
+    artifacts:
+      - frameworks/opencv2.xcframework.zip
+    publishing:
+      email:
+        recipients:
+          - y-fujiwara@greendaysjapan.or.jp
